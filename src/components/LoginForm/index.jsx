@@ -20,12 +20,13 @@ const LoginForm = () => {
       phone: data.phone,
     };
     setUser(formattedData);
+    console.log(formattedData);
   };
 
   useEffect(() => {
     if (user) {
       updateUserDetails(user);
-      navigate("/profile", { replace: true });
+      navigate("/", { replace: true });
     }
   }, [user, updateUserDetails, navigate]);
 

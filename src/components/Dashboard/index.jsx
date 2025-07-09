@@ -26,7 +26,7 @@ const CommentsDashboard = () => {
   const [userSettings, setUserSettings] = useState(userPreferences);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(userSettings.page || 1);
   const [pageSize, setPageSize] = useState(userSettings.pageSize || 10);
   const [searchTerm, setSearchTerm] = useState(userSettings.search || "");
   const [sortConfig, setSortConfig] = useState({
@@ -86,16 +86,14 @@ const CommentsDashboard = () => {
   }, []);
 
   useEffect(() => {
-    // Update user preferences in local storage
     setUserPreferences({
       page: currentPage,
       pageSize,
       search: searchTerm,
-
       sortKey: sortConfig.key,
       sortDirection: sortConfig.direction,
     });
-    // Update user settings state
+
     setUserSettings({
       page: currentPage,
       pageSize,
@@ -105,7 +103,6 @@ const CommentsDashboard = () => {
     });
   }, [currentPage, pageSize, searchTerm, sortConfig]);
 
-  // Filter and sort comments
   const filteredAndSortedComments = useMemo(() => {
     let filtered = comments.filter((comment) => {
       const searchLower = searchTerm.toLowerCase();
@@ -138,18 +135,15 @@ const CommentsDashboard = () => {
     return filtered;
   }, [comments, searchTerm, sortConfig]);
 
-  // Pagination calculations
   const totalPages = Math.ceil(filteredAndSortedComments.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentComments = filteredAndSortedComments.slice(startIndex, endIndex);
 
-  // Reset to first page when search changes
   useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm, pageSize]);
 
-  // Handle sorting
   const handleSort = (key) => {
     setSortConfig((prevConfig) => {
       if (prevConfig.key !== key) {
@@ -166,18 +160,15 @@ const CommentsDashboard = () => {
     });
   };
 
-  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  // Handle page size change
   const handlePageSizeChange = (size) => {
     setPageSize(size);
     setCurrentPage(1);
   };
 
-  // Get sort icon
   const getSortIcon = (key) => {
     if (sortConfig.key !== key) return null;
     if (sortConfig.direction === "asc")
@@ -187,7 +178,6 @@ const CommentsDashboard = () => {
     return null;
   };
 
-  // Generate page numbers for pagination
   const getPageNumbers = () => {
     const pages = [];
     const showEllipsis = totalPages > 7;
@@ -282,9 +272,6 @@ const CommentsDashboard = () => {
           </div>
         </div>
 
-        {/* Results Info */}
-
-        {/* Table */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">

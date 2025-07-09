@@ -13,6 +13,7 @@ function App() {
 
   const updateUserDetails = (userData) => {
     setUserDetails(userData);
+    console.log(userData, "userdaata updt");
   };
 
   return (

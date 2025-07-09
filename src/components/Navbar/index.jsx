@@ -20,7 +20,7 @@ export default function Navbar() {
         <div className="bg-gray-500 w-8 h-8 rounded-full flex items-center justify-center">
           <span className="text-sm font-semibold">EH</span>
         </div>
-        <span>Ervin Howell</span>
+        <span>{userDetails.name}</span>
       </Link>
     </nav>
   );

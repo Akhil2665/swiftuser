@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar";
 import { ArrowLeftFromLine } from "lucide-react";
+import UserContext from "../../context/userContext";
 
-export default function Profile() {
+const Profile = () => {
   const [userData, setuserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { updateUserDetails } = useContext(UserContext);
   useEffect(() => {
     const fetchUserData = async () => {
-      const reponse = await fetch("https://jsonplaceholder.typicode.com/users");
-      const usersData = await reponse.json();
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      const usersData = await response.json();
       const data = usersData[1];
       // console.log(data);
       const formattedData = {
@@ -20,6 +24,7 @@ export default function Profile() {
         phone: data.phone,
       };
       setuserData(formattedData);
+      updateUserDetails(formattedData);
       setLoading(false);
     };
     fetchUserData();
@@ -48,7 +53,7 @@ export default function Profile() {
           >
             <ArrowLeftFromLine className="mr-2" />
           </Link>
-          <p className="text-lg text-gray-700 mb-6 fle">
+          <p className="text-lg text-gray-700 mb-6 flex">
             {`Welcome, ${userData.name}`}
           </p>
         </div>
@@ -114,4 +119,6 @@ export default function Profile() {
       </div>
     </div>
   );
-}
+};
+
+export default Profile;
