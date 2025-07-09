@@ -18,10 +18,9 @@ function App() {
   return (
     <UserContext.Provider value={{ userDetails, updateUserDetails }}>
       <Routes>
-        <Route path="/" element={<h1>Home Page</h1>} />
+        <Route path="/" element={<Profile />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/comments-dashboard" element={<CommentsDashboard />} />
-        <Route path="/profile" element={<Profile />} />
       </Routes>
     </UserContext.Provider>
   );

@@ -16,7 +16,7 @@ export default function Navbar() {
         </span>
         <span className="text-white px-0">WIFT</span>
       </div>
-      <Link className="flex items-center gap-2" to="/profile">
+      <Link className="flex items-center gap-2" to="/">
         <div className="bg-gray-500 w-8 h-8 rounded-full flex items-center justify-center">
           <span className="text-sm font-semibold">EH</span>
         </div>
